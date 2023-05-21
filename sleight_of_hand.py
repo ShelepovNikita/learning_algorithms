@@ -28,6 +28,7 @@ def count_wins(type_of_simulator: list[str], number_of_players=2) -> int:
 
 
 def main() -> int:
+    """Главная функция на запуск модуля."""
     type_of_simulator = read_lines()
     result = count_wins(type_of_simulator)
     return result

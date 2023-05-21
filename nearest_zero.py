@@ -36,6 +36,7 @@ def from_right(zero_index: list[str], result: list[int]) -> list[int]:
 
 
 def main() -> list[int]:
+    """Главная функция на запуск модуля."""
     result = [0] * length_of_street
     zero_index = find_zero_index(street)
     result = from_left(zero_index, result)
