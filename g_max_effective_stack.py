@@ -13,7 +13,7 @@ class StackMaxEffective:
         self.items = []
         self.max = []
 
-    def isEmpty(self) -> bool:
+    def is_empty(self) -> bool:
         """Проверка пустой ли стэк."""
         return self.items == []
 
