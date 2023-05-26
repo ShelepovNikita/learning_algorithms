@@ -30,14 +30,14 @@ class StackMaxEffective:
 
     def get_max(self) -> str:
         """Получение максимального значения."""
-        if self.isEmpty():
+        if self.is_empty():
             return 'None'
         return str(self.max[-1])
 
     def pop(self) -> None:
         """Удаление значения из списка стэка и
         добавление значения в список максимальных значений."""
-        if self.isEmpty():
+        if self.is_empty():
             print('error')
         else:
             self.max.pop()
