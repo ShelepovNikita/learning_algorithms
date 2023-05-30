@@ -24,61 +24,61 @@ class Deque:
         - Указатель конца дека
         - Количество элементов в деке."""
         self.__dequeue = [None] * max_size
-        self.max_size = max_size
-        self.head = 0
-        self.tail = 0
-        self.len = 0
+        self.__max_size = max_size
+        self.__head = 0
+        self.__tail = 0
+        self.__len = 0
 
     def is_empty(self) -> bool:
         """Проверка пустой ли дек."""
-        return self.len == 0
+        return self.__len == 0
 
     def push_front(self, item: int) -> None:
         """Добавление элемента в начало дека."""
-        if self.len == self.max_size:
+        if self.__len == self.__max_size:
             raise DequeFull
         else:
-            if self.__dequeue[self.head] is None:
-                self.__dequeue[self.head] = item
+            if self.__dequeue[self.__head] is None:
+                self.__dequeue[self.__head] = item
             else:
-                self.head = (self.head - 1) % self.max_size
-                self.__dequeue[self.head] = item
-            self.len += 1
+                self.__head = (self.__head - 1) % self.__max_size
+                self.__dequeue[self.__head] = item
+            self.__len += 1
 
     def push_back(self, item: int) -> None:
         """Добавление элемента в конец дека."""
-        if self.len == self.max_size:
+        if self.__len == self.__max_size:
             raise DequeFull
         else:
-            if self.__dequeue[self.tail] is None:
-                self.__dequeue[self.tail] = item
+            if self.__dequeue[self.__tail] is None:
+                self.__dequeue[self.__tail] = item
             else:
-                self.tail = (self.tail + 1) % self.max_size
-                self.__dequeue[self.tail] = item
-            self.len += 1
+                self.__tail = (self.__tail + 1) % self.__max_size
+                self.__dequeue[self.__tail] = item
+            self.__len += 1
 
     def pop_front(self) -> None:
         """Удаление элемента из начала дека."""
         if self.is_empty():
             raise DequeEmpty
-        element = self.__dequeue[self.head]
-        self.__dequeue[self.head] = None
-        self.head = (self.head + 1) % self.max_size
-        self.len -= 1
+        element = self.__dequeue[self.__head]
+        self.__dequeue[self.__head] = None
+        self.__head = (self.__head + 1) % self.__max_size
+        self.__len -= 1
         if self.is_empty():
-            self.head = self.tail = 0
+            self.__head = self.__tail = 0
         print(element)
 
     def pop_back(self) -> None:
         """Удаление элемента из конца дека."""
         if self.is_empty():
             raise DequeEmpty
-        element = self.__dequeue[self.tail]
-        self.__dequeue[self.tail] = None
-        self.tail = (self.tail - 1) % self.max_size
-        self.len -= 1
+        element = self.__dequeue[self.__tail]
+        self.__dequeue[self.__tail] = None
+        self.__tail = (self.__tail - 1) % self.__max_size
+        self.__len -= 1
         if self.is_empty():
-            self.head = self.tail = 0
+            self.__head = self.__tail = 0
         print(element)
 
 
