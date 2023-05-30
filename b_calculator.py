@@ -1,42 +1,46 @@
 """Модуль производит рассчет для решения задачи -
  "Калькулятор" из Яндекс Контеста."""
-# 87784515
+# 87822529
+import operator
+
+ACTION = {
+    "+": operator.add,
+    "-": operator.sub,
+    "/": operator.floordiv,
+    "*": operator.mul,
+}
 
 
-def is_number(char: str) -> bool:
-    """Проверка является ли строка числом."""
-    try:
-        float(char)
-        return True
-    except ValueError:
-        return False
+class Stack:
+    """Класс для хранения стека и методов работы с ним."""
+
+    def __init__(self) -> None:
+        """При инициализации создается:
+        - Список для хранения элементов (стек)."""
+        self.__stack = []
+
+    def push(self, item: int) -> None:
+        """Добавление элемента в стек."""
+        self.__stack.append(item)
+
+    def pop(self) -> int:
+        """Удаление элемента из стека."""
+        return self.__stack.pop()
 
 
-def math_operate(math_sign: str) -> int:
-    """Запуск операции при появлении математического знака."""
-    numbers = [stack_numbers.pop(), stack_numbers.pop()]
-    if math_sign == '+':
-        number = numbers[1] + numbers[0]
-    if math_sign == '/':
-        number = numbers[1] // numbers[0]
-    if math_sign == '*':
-        number = numbers[1] * numbers[0]
-    if math_sign == '-':
-        number = numbers[1] - numbers[0]
-    return number
-
-
-def main() -> None:
-    """Главная функция на добавление числа в стек."""
-    for char in expression:
-        if is_number(char):
-            stack_numbers.append(int(char))
+def main() -> int:
+    """Главная функция на запуск модуля."""
+    for item in expression:
+        if item in ACTION:
+            first_item_pop = stack_numbers.pop()
+            second_item_pop = stack_numbers.pop()
+            stack_numbers.push(ACTION[item](second_item_pop, first_item_pop))
         else:
-            stack_numbers.append(math_operate(char))
+            stack_numbers.push(int(item))
+    return stack_numbers.pop()
 
 
 if __name__ == '__main__':
-    expression = input().split()
-    stack_numbers = []
-    main()
-    print(stack_numbers.pop())
+    expression: list[str] = input().split()
+    stack_numbers: Stack = Stack()
+    print(main())

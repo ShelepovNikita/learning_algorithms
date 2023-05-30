@@ -1,9 +1,19 @@
 """Модуль производит рассчет для решения задачи -
  "Дек" из Яндекс Контеста."""
-# 87768962
+# 87823971
 
 
-class MyQueueSized:
+class DequeFull(Exception):
+    """Вызывается когда дэк максимально заполнен."""
+    pass
+
+
+class DequeEmpty(Exception):
+    """Вызывается когда дэк пустой."""
+    pass
+
+
+class Deque:
     """Класс для создания объекта дека."""
 
     def __init__(self, max_size: int) -> None:
@@ -13,7 +23,7 @@ class MyQueueSized:
         - Указатель головы дека
         - Указатель конца дека
         - Количество элементов в деке."""
-        self.dequeue = [None] * max_size
+        self.__dequeue = [None] * max_size
         self.max_size = max_size
         self.head = 0
         self.tail = 0
@@ -26,69 +36,63 @@ class MyQueueSized:
     def push_front(self, item: int) -> None:
         """Добавление элемента в начало дека."""
         if self.len == self.max_size:
-            print('error')
+            raise DequeFull
         else:
-            if self.dequeue[self.head] is None:
-                self.dequeue[self.head] = item
+            if self.__dequeue[self.head] is None:
+                self.__dequeue[self.head] = item
             else:
                 self.head = (self.head - 1) % self.max_size
-                self.dequeue[self.head] = item
+                self.__dequeue[self.head] = item
             self.len += 1
 
     def push_back(self, item: int) -> None:
         """Добавление элемента в конец дека."""
         if self.len == self.max_size:
-            print('error')
+            raise DequeFull
         else:
-            if self.dequeue[self.tail] is None:
-                self.dequeue[self.tail] = item
+            if self.__dequeue[self.tail] is None:
+                self.__dequeue[self.tail] = item
             else:
                 self.tail = (self.tail + 1) % self.max_size
-                self.dequeue[self.tail] = item
+                self.__dequeue[self.tail] = item
             self.len += 1
 
-    def pop_front(self) -> str:
+    def pop_front(self) -> None:
         """Удаление элемента из начала дека."""
         if self.is_empty():
-            return 'error'
-        element = self.dequeue[self.head]
-        self.dequeue[self.head] = None
+            raise DequeEmpty
+        element = self.__dequeue[self.head]
+        self.__dequeue[self.head] = None
         self.head = (self.head + 1) % self.max_size
         self.len -= 1
         if self.is_empty():
             self.head = self.tail = 0
-        return str(element)
+        print(element)
 
-    def pop_back(self) -> str:
+    def pop_back(self) -> None:
         """Удаление элемента из конца дека."""
         if self.is_empty():
-            return 'error'
-        element = self.dequeue[self.tail]
-        self.dequeue[self.tail] = None
+            raise DequeEmpty
+        element = self.__dequeue[self.tail]
+        self.__dequeue[self.tail] = None
         self.tail = (self.tail - 1) % self.max_size
         self.len -= 1
         if self.is_empty():
             self.head = self.tail = 0
-        return str(element)
+        print(element)
 
 
-def main(command: str) -> None:
+def main(command) -> None:
     """Главная функция на запуск модуля."""
-    if 'push_front' in command:
-        command, item = command.split()
-        dequeue.push_front(int(item))
-    if 'push_back' in command:
-        command, item = command.split()
-        dequeue.push_back(int(item))
-    elif command == 'pop_front':
-        print(dequeue.pop_front())
-    elif command == 'pop_back':
-        print(dequeue.pop_back())
+    try:
+        getattr(dequeue, command.pop(0))(*command)
+    except Exception:
+        print('error')
 
 
 if __name__ == '__main__':
-    amount_commands = int(input())
-    max_size = int(input())
-    dequeue = MyQueueSized(max_size)
+    amount_commands: int = int(input())
+    max_size: int = int(input())
+    dequeue: Deque = Deque(max_size)
     for _ in range(amount_commands):
-        main(input())
+        main(input().split())
