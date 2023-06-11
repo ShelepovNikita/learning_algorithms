@@ -24,21 +24,20 @@ def broken_search(nums: list[int], target: int) -> int:
     return -1
 
 
-# def main() -> int:
-#     """Главная функция на запуск модуля."""
-#     return broken_search(nums, target)
-
-
-# if __name__ == '__main__':
-#     count_nums = int(input())
-#     target: int = int(input())
-#     nums: list[int] = input().split()
-#     print(main())
-
 def test():
     arr = [19, 21, 100, 101, 1, 4, 5, 7, 12, 13, 14, 15, 16]
     assert broken_search(arr, 5) == 6, 'Тест не пройден'
     return 'Тест пройден'
 
 
-print(test())
+def main() -> int:
+    """Главная функция на запуск модуля."""
+    # return broken_search(nums, target)
+    return test()
+
+
+if __name__ == '__main__':
+    # count_nums = int(input())
+    # target: int = int(input())
+    # nums: list[int] = input().split()
+    print(main())
